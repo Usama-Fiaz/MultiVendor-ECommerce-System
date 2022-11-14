@@ -1,8 +1,10 @@
 package assignment02
+
 import (
 	"crypto/sha256"
 	"fmt"
 	"strconv"
+	"math/rand"
 	"time"
 )
 
@@ -26,7 +28,7 @@ type Blockchain struct {
 }
 
 func GenerateNonce(blockData []Transaction) int {
-	return 10
+	return rand.Intn(10000)
 }
 
 func CalculateHash(blockData []Transaction, nonce int) string {
@@ -41,8 +43,8 @@ func CalculateHash(blockData []Transaction, nonce int) string {
 func NewBlock(blockData []Transaction, chainHead *Block) *Block {
 	B := new(Block)
 	if chainHead == nil{
-		// int nonce = GenerateNonce(blockData)
-		B.Nonce = 10
+		nonce := GenerateNonce(blockData)
+		B.Nonce = nonce
 		B.CurrentHash = CalculateHash(blockData,B.Nonce)
 		B.PrevHash = "nil"
 		B.BlockData = blockData[:]
@@ -63,11 +65,11 @@ func ListBlocks(chainHead *Block) {
 	Temp_chainHead := new(Block)
 	Temp_chainHead = chainHead
 
-	fmt.Println("\n\n\t\t\t\t\t\t\t🟥 Listing All Blocks\n")
+	fmt.Println("\n\t\t\t\t\t\t\t🟥 Listing All Blocks\n")
 	i := 0
 	for Temp_chainHead != nil {
 		i++
-		fmt.Println("❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ Block No : ",i," ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌")
+		fmt.Println("❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ Block No : ",i," ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌\n")
 		fmt.Println("✅ Nonce : ",Temp_chainHead.Nonce)
 		fmt.Println("✅ CurrentHash : ",Temp_chainHead.CurrentHash)
 		fmt.Println("✅ PrevPointer : ",Temp_chainHead.PrevPointer)
