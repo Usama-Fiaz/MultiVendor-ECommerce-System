@@ -1,9 +1,8 @@
-package assignment02
-
 import (
 	"crypto/sha256"
 	"fmt"
 	"strconv"
+	"time"
 )
 
 type Transaction struct {
@@ -26,7 +25,7 @@ type Blockchain struct {
 }
 
 func GenerateNonce(blockData []Transaction) int {
-	return 0
+	return 10
 }
 
 func CalculateHash(blockData []Transaction, nonce int) string {
@@ -39,17 +38,70 @@ func CalculateHash(blockData []Transaction, nonce int) string {
 }
 
 func NewBlock(blockData []Transaction, chainHead *Block) *Block {
-	return chainHead
+	B := new(Block)
+	if chainHead == nil{
+		// int nonce = GenerateNonce(blockData)
+		B.Nonce = 10
+		B.CurrentHash = CalculateHash(blockData,B.Nonce)
+		B.PrevHash = "nil"
+		B.BlockData = blockData[:]
+		B.PrevPointer = nil
+
+	} else {
+		B.Nonce = 20
+		B.CurrentHash = CalculateHash(blockData,B.Nonce)
+		B.PrevHash = chainHead.CurrentHash
+		B.BlockData = blockData[:]
+		B.PrevPointer = chainHead
+	}
+	return B
 }
 
 func ListBlocks(chainHead *Block) {
+	// First Take a Temp Variable for Chain Header so that it may not be Misplaced.
+	Temp_chainHead := new(Block)
+	Temp_chainHead = chainHead
 
+	fmt.Println("\n\n\t\t\t\t\t\t\t🟥 Listing All Blocks\n")
+	i := 0
+	for Temp_chainHead != nil {
+		i++
+		fmt.Println("❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌ Block No : ",i," ❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌❌")
+		fmt.Println("✅ Nonce : ",Temp_chainHead.Nonce)
+		fmt.Println("✅ CurrentHash : ",Temp_chainHead.CurrentHash)
+		fmt.Println("✅ PrevPointer : ",Temp_chainHead.PrevPointer)
+		fmt.Println("✅ PrevHash : ",Temp_chainHead.PrevHash)
+		fmt.Println("✅ Block/Transaction Data : ")
+		DisplayTransactions(Temp_chainHead.BlockData)
+
+		Temp_chainHead=Temp_chainHead.PrevPointer
+	}
 }
 
 func DisplayTransactions(blockData []Transaction) {
-
+	var i=0
+	for i=0;i<len(blockData);i++ {
+		fmt.Println("\t\t\t====================================== (",i+1,") ======================================")
+		fmt.Println("\t\t\tTransactionID : ",blockData[i].TransactionID)
+		fmt.Println("\t\t\tSender : ",blockData[i].Sender)
+		fmt.Println("\t\t\tReceiver : ",blockData[i].Receiver)
+		fmt.Println("\t\t\tAmount : ",blockData[i].Amount)
+	}
+	fmt.Println("\t\t\t===================================================================================\n")
 }
 
 func NewTransaction(sender string, receiver string, amount int) Transaction {
-	return Transaction{"", "", "", 0}
+	T := new(Transaction)
+
+	t := time.Now()
+	str_amount:=strconv.Itoa(amount)
+
+	TransactionId_string:=fmt.Sprintf("%x", sha256.Sum256([]byte(t.String()+sender+receiver+str_amount)))
+
+	T.TransactionID = TransactionId_string
+	T.Sender = sender
+	T.Receiver = receiver
+	T.Amount = amount
+
+	return *T
 }
