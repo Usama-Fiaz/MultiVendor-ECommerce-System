@@ -1,3 +1,4 @@
+package assignment02
 import (
 	"crypto/sha256"
 	"fmt"
