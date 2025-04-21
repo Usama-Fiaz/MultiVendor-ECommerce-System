@@ -5,7 +5,7 @@ A comprehensive e-commerce platform that supports multiple vendors, built with L
 ## Demo
 Watch our comprehensive demo video to see the system in action:
 
-[![MultiVendor E-Commerce System Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
+[![MultiVendor E-Commerce System Demo](https://drive.google.com/uc?export=view&id=1BeOqyb3Z--2y1PNq4tlHKPuwKwfs4QiO)](https://drive.google.com/file/d/1BeOqyb3Z--2y1PNq4tlHKPuwKwfs4QiO/view?usp=drive_link)
 
 ## System Architecture
 ![System Architecture Diagram](./Architecture-Diagram.png)
