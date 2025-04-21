@@ -8,7 +8,7 @@ Watch our comprehensive demo video to see the system in action:
 [![MultiVendor E-Commerce System Demo](https://img.youtube.com/vi/YOUR_VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)
 
 ## System Architecture
-![System Architecture Diagram](architecture-diagram.png)
+![System Architecture Diagram](./Architecture-Diagram.png)
 
 The architecture diagram above illustrates the complete system structure, including:
 - Core components and their interactions
